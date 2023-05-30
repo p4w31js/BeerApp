@@ -19,4 +19,6 @@ interface Beer {
   street: string;
 }
 
-export type { Beer };
+type BeerKeys = keyof Beer;
+
+export type { Beer, BeerKeys };

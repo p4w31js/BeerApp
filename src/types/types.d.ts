@@ -12,4 +12,10 @@ type TYPE =
 
 type SORT = 'asc' | 'desc';
 
-export type { TYPE, SORT };
+type METADATA = {
+  page: string;
+  per_page: string;
+  total: string;
+}
+
+export type { TYPE, SORT, METADATA };

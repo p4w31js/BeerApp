@@ -1,16 +1,31 @@
-import { getBeerList } from '../../api';
-import { Beer } from '../../types';
+import { getBeerList, getBeerMetaData } from '../../api';
+import { ApiParams, Beer, METADATA } from '../../types';
 import handle from '../../utils/error';
 
-const fetchData = (setData: (data: Array<Beer>) => void) => {
+const fetchData = (setData: (data: Array<Beer>, metadata: METADATA) => void, params?: ApiParams) => {
   (async () => {
     try {
-      const response = await getBeerList();
-      setData(response.data);
+      const responseBeerList = await getBeerList(params);
+      const responseBeerMetaData = await getBeerMetaData(params);
+      setData(responseBeerList.data, responseBeerMetaData.data);
     } catch (error) {
       handle(error);
     }
   })();
 };
 
-export { fetchData };
+const typeOptions = [
+  'Not set',
+  'micro',
+  'nano',
+  'regional',
+  'brewpub',
+  'large',
+  'planning',
+  'bar',
+  'contract',
+  'proprietor',
+  'closed',
+];
+
+export { fetchData, typeOptions };
